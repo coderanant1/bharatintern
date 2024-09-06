@@ -1,38 +1,25 @@
-const apiKey = 'd218ab4ae32d2fcab899a238b89f64d8'; // Replace with your OpenWeatherMap API key
+JavaScript(index.js) let accordian = document.getElementsByClassName("FAQ__title");
 
-document.getElementById('get-weather-btn').addEventListener('click', function() {
-    const city = document.getElementById('city-input').value;
-    if (city) {
-        getWeather(city);
-    }
-});
+for (let i = 0; i & lt; accordian.length; i++) {
+    accordian[i].addEventListener(& quot; click & quot; , function () {
+        if (this.childNodes[1].classList.contains(& quot; fa - plus & quot; )) {
+            this.childNodes[1].classList.remove(& quot; fa - plus & quot; );
+            this.childNodes[1].classList.add(& quot; fa - times & quot; );
+        }
 
-function getWeather(city) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+            else {
+            this.childNodes[1].classList.remove(& quot; fa - times & quot; );
+            this.childNodes[1].classList.add(& quot; fa - plus & quot; );
+        }
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.cod === 200) {
-                displayWeather(data);
-            } else {
-                document.getElementById('weather-info').innerHTML = 'City not found!';
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching weather data:', error);
-            document.getElementById('weather-info').innerHTML = 'Error fetching weather data!';
-        });
-}
+        let content = this.nextElementSibling;
 
-function displayWeather(data) {
-    const weatherInfo = `
-        <h2>${data.name}, ${data.sys.country}</h2>
-        <p>${data.weather[0].description}</p>
-        <p>Temperature: ${data.main.temp}°C</p>
-        <p>Humidity: ${data.main.humidity}%</p>
-        <p>Wind Speed: ${data.wind.speed} m/s</p>
-        <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="Weather icon">
-    `;
-    document.getElementById('weather-info').innerHTML = weatherInfo;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        }
+
+        else {
+            content.style.maxHeight = content.scrollHeight + & quot; px & quot;;
+        }
+    });
 }
